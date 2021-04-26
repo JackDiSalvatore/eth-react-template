@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Instructions
 
-Inside `src` create a `.env` file with following
+Create a `.env` file with following
 
 ```bash
 REACT_APP_RPC_URLS_1
