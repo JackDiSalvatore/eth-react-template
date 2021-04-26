@@ -4,7 +4,7 @@ import ERC20ABI from "../abi/ERC20.abi.json";
 import EtherBalance from './Ether/EtherBalance';
 import TransferEther from './Ether/EtherTransfer';
 import ERC20List from './ERC20List';
-import { fetcher, Networks, shorter } from "../utils";
+import { fetcher } from "../utils";
 
 const Main = ({ chainId, library }) => {
     return (

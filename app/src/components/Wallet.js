@@ -11,7 +11,7 @@ import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3
 
 import useEagerConnect from './hooks/useEagerConnect';
 import useInactiveListener from './hooks/useInactiveListener';
-import { fetcher, Networks, shorter } from "../utils";
+import { Networks, shorter } from "../utils";
 
 import Main from './Main';
 
