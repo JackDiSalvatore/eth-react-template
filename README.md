@@ -1,4 +1,6 @@
-# README
+# eth-react-template
+
+This code contains a truffle project from developing and deploying ethereum smart contracts as well as a react js web app that demostrates wallet connections, payments, and erc20 tokens.
 
 ## Smart Contract
 
