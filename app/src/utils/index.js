@@ -5,6 +5,8 @@ import { isAddress } from '@ethersproject/address'
 import MKRIcon from '../assets/maker-mkr-logo.svg';
 import DAIIcon from '../assets/multi-collateral-dai-dai-logo.svg';
 
+const UnknownIcon = "https://img.icons8.com/ios-glyphs/30/000000/question-mark.png"
+
 export const Networks = {
   MainNet: 1,
   Ropsten: 3,
@@ -105,12 +107,14 @@ export const TOKENS_BY_NETWORK = {
       symbol: "XYZ",
       name: "XyzToken",
       decimals: 18,
+      icon: UnknownIcon,
     },
     {
         address: "0x04024a9a11f0Cba69D962EEc5e5B33CfA423bDb1",
         symbol: "ABC",
         name: "AbcToken",
         decimals: 18,
+        icon: UnknownIcon,
       },
   ],
 }
