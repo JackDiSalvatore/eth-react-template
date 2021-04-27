@@ -1,6 +1,10 @@
 import { Contract } from '@ethersproject/contracts'
 import { isAddress } from '@ethersproject/address'
 
+// Token Icons
+import MKRIcon from '../assets/maker-mkr-logo.svg';
+import DAIIcon from '../assets/multi-collateral-dai-dai-logo.svg';
+
 export const Networks = {
   MainNet: 1,
   Ropsten: 3,
@@ -21,12 +25,14 @@ export const TOKENS_BY_NETWORK = {
       name: 'Maker',
       symbol: 'MKR',
       decimals: 18,
+      icon: MKRIcon,
     },
     {
       address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
       name: 'Dai Stablecoin',
       symbol: 'DAI',
       decimals: 18,
+      icon: DAIIcon,
     },
   ],
   [Networks.Ropsten]: [
@@ -35,12 +41,14 @@ export const TOKENS_BY_NETWORK = {
       symbol: 'DAI',
       name: 'Dai',
       decimals: 18,
+      icon: DAIIcon,
     },
     {
       address: '0x972a444311a8677b63df192b197f8b8a45126ff6',
       symbol: 'MKR',
       name: 'Maker',
       decimals: 18,
+      icon: MKRIcon,
     },
   ],
   [Networks.Rinkeby]: [
@@ -49,12 +57,14 @@ export const TOKENS_BY_NETWORK = {
       symbol: 'DAI',
       name: 'Dai',
       decimals: 18,
+      icon: DAIIcon,
     },
     {
       address: '0xF9bA5210F91D0474bd1e1DcDAeC4C58E359AaD85',
       symbol: 'MKR',
       name: 'Maker',
       decimals: 18,
+      icon: MKRIcon,
     },
   ],
   [Networks.Goerli]: [
@@ -63,12 +73,14 @@ export const TOKENS_BY_NETWORK = {
       symbol: 'DAI',
       name: 'Dai',
       decimals: 18,
+      icon: DAIIcon,
     },
     {
       address: '0xb69a66075b6e73fb8741edf5d2127e8b11a483e5',
       symbol: 'MKR',
       name: 'Maker',
       decimals: 18,
+      icon: MKRIcon,
     },
   ],
   [Networks.Kovan]: [
@@ -77,12 +89,14 @@ export const TOKENS_BY_NETWORK = {
       symbol: 'DAI',
       name: 'Dai',
       decimals: 18,
+      icon: DAIIcon,
     },
     {
       address: '0xe37974e5784bee9885a6e21888556fb779de600e',
       symbol: 'MKR',
       name: 'Maker',
       decimals: 18,
+      icon: MKRIcon,
     },
   ],
   [Networks.Localhost]: [

@@ -8,23 +8,31 @@ const EtherTransfer = () => {
   const [to, setTo] = useState('')
 
   return (
-    <div>
-      <input
-        className="TransferInput"
-        value={amount}
-        type="text"
-        placeholder="ETH: 100.00"
-        onChange={(e) => setAmount(e.target.value)}
-      ></input>
-      <input
-        className="TransferInput"
-        value={to}
-        type="text"
-        placeholder="To: 0x"
-        onChange={(e) => setTo(e.target.value)}
-      ></input>
-      <button className="Send" onClick={() => transferEther(to, amount)}>SEND</button>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 0.5fr',
+      }}>
+      <div className="token-transfer-container">
+        <input
+          className="TransferInput"
+          value={amount}
+          type="text"
+          placeholder="ETH"
+          onChange={(e) => setAmount(e.target.value)}
+        ></input>
+
+        <input
+          className="TransferInput"
+          value={to}
+          type="text"
+          placeholder="To: 0x"
+          onChange={(e) => setTo(e.target.value)}
+        ></input>
+      </div>
+      <button onClick={() => transferEther(to, amount)}>SEND</button>
     </div>
+
   );
 }
 

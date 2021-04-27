@@ -34,10 +34,13 @@ const ERC20Balance = ({ symbol, address, decimals }) => {
   }, [account, address, library, mutate])
 
   if (!balance) {
-    return <div>...</div>
+    return <div className="TokenBalance">...</div>
+  }
+  if (parseFloat(formatUnits(balance)).toPrecision(1) == 0) {
+    return <div className="TokenBalance">0 {symbol}</div>
   }
   return (
-    <div>
+    <div className="TokenBalance">
       {parseFloat(formatUnits(balance, decimals)).toPrecision(4)} {symbol}
     </div>
   )

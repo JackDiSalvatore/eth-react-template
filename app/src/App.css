@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 5% auto;
 }
 
 .App-logo {
@@ -37,35 +38,114 @@
   }
 }
 
+/* Components */
+
+.TokenBalance {
+  font-size: 1.25rem;
+  margin: auto 0;
+}
+
+/* Grid Containers */
+
+.blank-container {
+  margin: 2% 20%;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid gainsboro;
+  display: grid;
+}
+
+.token-container {
+  margin: 2% 20%;
+  padding: 1.5rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid gainsboro;
+  display: grid;
+  grid-template-columns: 0.12fr 0.25fr 1fr;
+  grid-auto-columns: 0.12fr 0.25fr 1fr;
+  overflow: auto;
+  /* resize: horizontal; */
+  /* display: inline-flex; */
+  /* flex-wrap: wrap; */
+
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* align-content: stretch; */
+  /* justify-content: space-between; */
+}
+
+.token-transfer-container {
+  display: grid;
+  padding: 0 0.25rem;
+}
+
 .grid-container {
   margin: 2% 20%;
   padding: 0.5rem 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid #888888;
+  border: 1px solid gainsboro;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-auto-rows: 1fr;
-  /* grid-template-rows: repeat(1, 1fr); */
 }
 
-.grid-container-transfer {
-  display: grid;
-  padding: 0.5rem 0.5rem;
-  grid-template-columns: 10% 90%;
-}
 
-.grid-item {
-  text-align: left;
-  padding: 0.25rem 0.25rem;
-}
+/* Inputs */
 
 input.TransferInput {
-  /* width: 100%; */
+  /* max-width: 100%; */
+  width: auto;
+  /* height: 1.5rem; */
   /* border-radius: 0.25rem; */
-  border-width: thin;
+  /* border-radius: 5px; */
+  border: 1px solid gainsboro;
+}
+input.TransferInput:focus {
+  outline: none;
 }
 
-button.Send {
-  /* width: 100%; */
-  /* height: 2rem; */
+/* Buttons */
+
+button {
+  cursor: 'pointer';
+  border-radius: 5px;
+  border: 1px solid gainsboro;
+  background-color: white;
 }
+button:active,
+button:hover {
+  border-color: rgb(80, 176, 255);
+  background-color: rgba(80, 176, 255, 0.15);
+}
+button:focus {
+  border-color: rgb(80, 176, 255);
+  background-color: rgba(80, 176, 255, 0.15);
+  outline: none;
+}
+
+.WalletButton {
+  height: 3rem;
+  border: 1px solid gainsboro;
+  background-color: white;
+  /* cursor: disabled ? 'unset' : 'pointer'; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* marginTop: 0px, */
+  padding: 0 10px;
+  opacity: 1;
+  width: 100% !important;
+}
+.WalletButton:active,
+.WalletButton:hover {
+  border-color: rgb(80, 176, 255);
+}
+.WalletButton:focus {
+  border-color: rgb(80, 176, 255);
+  outline: none;
+}
+
+/* .TransferButton {
+
+} */

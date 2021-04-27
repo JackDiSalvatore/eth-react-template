@@ -15,8 +15,7 @@ import { Networks, shorter } from "../utils";
 
 import { SWRConfig } from "swr";
 import ERC20ABI from "../abi/ERC20.abi.json";
-import EtherBalance from './Ether/EtherBalance';
-import TransferEther from './Ether/EtherTransfer';
+import Ether from './Ether/Ether';
 import ERC20List from './ERC20List';
 import { fetcher } from "../utils";
 
@@ -159,7 +158,6 @@ const Wallet = () => {
           display: 'grid',
           // gridGap: '1rem',
           gridTemplateColumns: '1fr',
-          margin: '0 0.5rem',
           justifyItems: 'right',
           // alignItems: 'center',
         }}
@@ -168,17 +166,16 @@ const Wallet = () => {
           <div
             style={{
               display: 'flex',
+              margin: '1rem 1rem',
             }}
           >
-            <p style={{textAlign: 'right', margin: '1rem'}}>{shorter(account)}</p>
+            <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
             <button
               style={{
-                // height: '100%',
-                width: '10rem',
-                // margin: 'auto',
-                borderRadius: '1rem',
+                height: '100%',
+                margin: '0 0.5rem',
+                padding: '0 1rem',
                 cursor: 'pointer',
-                textAlign: 'center'
               }}
               onClick={(connector) => {
                 if ( (connector === connectorsByName[ConnectorNames.Portis].connector) ||
@@ -207,96 +204,62 @@ const Wallet = () => {
       {!!(library && account) ? (
         <div className="App">
           <SWRConfig value={{ fetcher: fetcher(library, ERC20ABI) }}>
-            <div className="grid-container">
-              <div className="grid-item">
-                <strong>ETH</strong>
-                <EtherBalance />
-                <TransferEther />
-              </div>
-            </div>
-
-            <div className="grid-container">
-              <div className="grid-item">
-                <strong>ERC20 Tokens</strong>
-                <ERC20List chainId={chainId}/>
-              </div>
-            </div>
+            <Ether />
+            <ERC20List chainId={chainId} />
           </SWRConfig>
         </div>
         ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridGap: '1rem',
-            gridAutoColumns: '1fr 1fr',
-            maxWidth: '20rem',
-            margin: 'auto'
-          }}
-        >
-          {Object.keys(connectorsByName).map(name => {
-            const currentConnector = connectorsByName[name].connector
-            const activating = currentConnector === activatingConnector
-            const connected = currentConnector === connector
-            const disabled = !triedEager || !!activatingConnector || connected || !!error
+        <div className="App">
+          <div
+            style={{
+              display: 'grid',
+              gridGap: '1rem',
+              gridAutoColumns: '1fr 1fr',
+              maxWidth: '20rem',
+              margin: 'auto'
+            }}
+          >
+            <p>Connect to a wallet</p>
+            {Object.keys(connectorsByName).map(name => {
+              const currentConnector = connectorsByName[name].connector
+              const activating = currentConnector === activatingConnector
+              const connected = currentConnector === connector
+              const disabled = !triedEager || !!activatingConnector || connected || !!error
 
-            return (
-              <button
-                style={{
-                  height: '3rem',
-                  borderRadius: '0.5rem',
-                  cursor: disabled ? 'unset' : 'pointer',
-                  // position: 'relative',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: '0px',
-                  opacity: '1',
-                  width: '100% !important',
-                }}
-                disabled={disabled}
-                key={name}
-                onClick={() => {
-                  setActivatingConnector(currentConnector)
-                  activate(connectorsByName[name].connector)
-                }}
-              >
-                {activating && (
-                  <div
-                    style={{
-                      // position: 'absolute',
-                      // top: '0',
-                      // left: '0',
-                      // height: '100%',
-                      // display: 'flex',
-                      // justifyItems: 'right',
-                      // alignItems: 'center',
-                      // color: 'black',
-                      // margin: '0 0 0 1rem'
-                    }}
-                  >
-                    <Spinner color={'black'} style={{ height: '25%' }} />
-                  </div>
-                )}
-                <div
-                  style={{
-                    margin: '0 0',
+              return (
+                <button
+                  className= "WalletButton"
+                  disabled={disabled}
+                  key={name}
+                  onClick={() => {
+                    setActivatingConnector(currentConnector)
+                    activate(connectorsByName[name].connector)
                   }}
                 >
-                  {name}
-                </div>
-                <img 
-                  margin="auto auto"
-                  style={{
-                    width: '24px',
-                    height: '24px',
-                    textAlign: 'right',
-                  }}
-                  src={connectorsByName[name].icon} alt="https://iconscout.com/icons/metamask by https://iconscout.com/contributors/icon-mafia">
-                </img>
-              </button>
-            )
-          })}
+                  {activating && (
+                    <Spinner color={'black'} style={{ height: '25%' }} />
+                  )}
+                  <div>
+                    {name}
+                  </div>
+                  <img 
+                    margin="auto auto"
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      textAlign: 'right',
+                    }}
+                    src={connectorsByName[name].icon} alt="https://iconscout.com/icons/metamask by https://iconscout.com/contributors/icon-mafia">
+                  </img>
+                </button>
+              )
+            })}
+            <p>
+              New to Ethereum?
+              <span> </span>
+              <a href="https://ethereum.org/en/wallets/">Learn more about wallets</a>
+            </p>
+          </div>
         </div>
       )}
     </>

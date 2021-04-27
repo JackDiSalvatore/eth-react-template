@@ -6,7 +6,16 @@ const ERC20List = ({ chainId }) => {
   return (
     <>
       {TOKENS_BY_NETWORK[chainId].map((token) => (
-        <div key={token.address} style={{padding: "0.25rem 0"}}>
+        <div className="token-container" key={token.address}>
+          <img
+            style={{
+              width: '48px',
+              height: '48px',
+              margin: 'auto',
+            }}
+            src={token.icon}
+            alt="ethereum Icon"
+          ></img>
           <ERC20Balance {...token} />
           <ERC20Transfer {...token} />
         </div>

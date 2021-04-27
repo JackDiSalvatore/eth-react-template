@@ -1,8 +1,9 @@
-import React from 'react';
+// import React from 'react';
 import useSWR from 'swr'
 import { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core'
 import { formatEther } from '@ethersproject/units';
+import { AuthereumConnector } from '@web3-react/authereum-connector';
 
 const EtherBalance = () => {
   const { account, library } = useWeb3React()
@@ -24,10 +25,13 @@ const EtherBalance = () => {
   }, [library, mutate])
 
   if (!balance) {
-    return <div>...</div>
+    return <div className="TokenBalance">...</div>
+  }
+  if (parseFloat(formatEther(balance)).toPrecision(1) == 0) {
+    return <div className="TokenBalance">0 ETH</div>
   }
   return (
-    <div>
+    <div className="TokenBalance">
       {parseFloat(formatEther(balance)).toPrecision(4)} ETH
     </div>
   )
