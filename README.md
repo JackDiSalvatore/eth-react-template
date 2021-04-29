@@ -2,6 +2,35 @@
 
 This code contains a truffle project for developing and deploying Ethereum Smart Contracts as well as a React Js web app that demostrates wallet connections, ETH payments, and ERC20 token transfers.
 
+## How To Run
+
+Blockchain applications (or DApp's) consist of an Ethereum blockchain, a user interface, and an Ethereum wallet for signing transactions.  Before deploying contracts on to the Etheruem mainnet you can develop them on a local blockchain using truffle.  You can then use a wallet provider to connect to the front-end web app that then connects to the blockchain to receive and send data.  To demonstate this, you can use the following process.
+
+1. Start a local blockchain (if connecting to mainnet or a testnet you can skip this step):
+```bash
+# Start a local Ethereum Blockchain
+truffle develop 
+
+# In the development console, deploy the smart contracts
+truffle(develop)> migrate --reset
+```
+
+2. In another terminal start the web app:
+```bash
+# Change to the app directory
+cd app
+
+# Start the web app
+npm start
+```
+
+3. Open a web browser and go to the URL of the web app (ex: http://localhost:3000/)
+ 
+4. Click on the Ethereum wallet you would like to connect.  And you are in!
+
+**Note:** If you are using MetaMask to test you will have to import the truffle accounts private key and reset the account in the settings.  [see Troubleshooting for more details](#Troubleshooting)
+
+
 ## Architechure
 
 ### Smart Contracts
@@ -160,20 +189,6 @@ truffle compile
 truffle test
 ```
 
-### Troubleshooting
-
-**Fix error -32603 in MetaMask:**
-
-`await web3.eth.getChainId()`
-ChainId: 1337
-RESET YOU METAMASK ACCOUNT
-
-```
-This is caused when you restart your test network or restarting from another test network. The cached transaction history in Metamask does not match the network’s history.
-
-To fix this issue, open the “settings” tab in Metamask, and click reset for the network.
-```
-
 ## React Web App
 
 **How To Create New Web App**
@@ -195,4 +210,18 @@ npm install dotenv
 
 ```
 npm start
+```
+
+## Troubleshooting
+
+**Fix error -32603 in MetaMask:**
+
+`await web3.eth.getChainId()`
+ChainId: 1337
+RESET YOU METAMASK ACCOUNT
+
+```
+This is caused when you restart your test network or restarting from another test network. The cached transaction history in Metamask does not match the network’s history.
+
+To fix this issue, open the “settings” tab in Metamask, and click reset for the network.
 ```
