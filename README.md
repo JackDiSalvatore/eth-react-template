@@ -151,6 +151,15 @@ Private Keys:
 (9) 891871af196ba637ba80f31cbfcf890c59b0eba5b0b2c8459fbd2eccee123519
 ```
 
+### Test
+
+```
+truffle compile
+truffle test
+```
+
+### Troubleshooting
+
 **Fix error -32603 in MetaMask:**
 
 `await web3.eth.getChainId()`
@@ -161,13 +170,6 @@ RESET YOU METAMASK ACCOUNT
 This is caused when you restart your test network or restarting from another test network. The cached transaction history in Metamask does not match the network’s history.
 
 To fix this issue, open the “settings” tab in Metamask, and click reset for the network.
-```
-
-### Test
-
-```
-truffle compile
-truffle test
 ```
 
 ## React Web App
@@ -181,7 +183,6 @@ npx create-react-app app
 # Install modules
 cd app
 npm install ethers
-
 npm install @web3-react/core
 npm install @web3-react/injected-connector
 npm install swr
