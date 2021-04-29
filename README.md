@@ -218,10 +218,9 @@ npm start
 
 `await web3.eth.getChainId()`
 ChainId: 1337
-RESET YOU METAMASK ACCOUNT
 
-```
+**RESET YOU METAMASK ACCOUNT**
+
 This is caused when you restart your test network or restarting from another test network. The cached transaction history in Metamask does not match the network’s history.
 
 To fix this issue, open the “settings” tab in Metamask, and click reset for the network.
-```
