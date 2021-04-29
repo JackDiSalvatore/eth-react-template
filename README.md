@@ -107,6 +107,8 @@ The Web app files are all under the `app` directory and make use of the React Js
 
 Smart contracts can be compiled, tested, and deployed using truffle.
 
+**How to start from scratch**
+
 ```bash
 truffle init
 npm install @openzeppelin/contracts
@@ -174,7 +176,7 @@ To fix this issue, open the “settings” tab in Metamask, and click reset for 
 
 ## React Web App
 
-### How To Create New Web App
+**How To Create New Web App**
 
 ```bash
 # Create new app from scratch
