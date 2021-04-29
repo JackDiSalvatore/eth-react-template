@@ -18,9 +18,9 @@ This code contains a truffle project for developing and deploying Ethereum Smart
 └── truffle-config.js
 ```
 
-Smart contracts are under the `contracts` directory.
-Unit tests are under the `test` directory.
-Migration (deployment instructions) are under the `migrations` directory.
+* Smart contracts are under the `contracts` directory.
+* Unit tests are under the `test` directory.
+* Migration (deployment instructions) are under the `migrations` directory.
 
 ### Web App
 
@@ -89,19 +89,19 @@ The Web app files are all under the `app` directory and make use of the React Js
 
 **Important Files**
 
-`src/index.js`: React entry point.
-`src/App.css`: global styles for the app.
-`src/App.js`: main App component entry point. Invokes the Wallet component.
-`src/abi`: contains the abi files for the smart contract interactions.  This is copied from the built contract `.json` file which can be found in `build/contracts` after the smart contracts are compiled.
-`src/assests`: contains images and graphics related to Ethereum Wallets and Tokens.
-`src/components`: contains all React componets.
-`src/components/ERC20`: React components related to ERC20 Tokens.
-`src/components/ERC20List.js`: React component to list all ERC20 Tokens definied in `utils/index.js`.
-`src/components/Ether`: React components related to ETH cryptocurrency.
-`src/components/Spinner.js`: React loading component.
-`src/components/Wallet.js`: main connected wallet view of the app (all Ethereum interact takes place here).
-`src/componets/hooks`: hook state functions for wallet and Ethereum state.
-`src/connectors`: definitions for wallet connections.
+*  `src/index.js`: React entry point.
+* `src/App.css`: global styles for the app.
+* `src/App.js`: main App component entry point. Invokes the Wallet component.
+* `src/abi`: contains the abi files for the smart contract interactions.  This is copied from the built contract `.json` file which can be found in `build/contracts` after the smart contracts are compiled.
+* `src/assests`: contains images and graphics related to Ethereum Wallets and Tokens.
+* `src/components`: contains all React componets.
+* `src/components/ERC20`: React components related to ERC20 Tokens.
+* `src/components/ERC20List.js`: React component to list all ERC20 Tokens definied in `utils/index.js`.
+* `src/components/Ether`: React components related to ETH cryptocurrency.
+* `src/components/Spinner.js`: React loading component.
+* `src/components/Wallet.js`: main connected wallet view of the app (all Ethereum interact takes place here).
+* `src/componets/hooks`: hook state functions for wallet and Ethereum state.
+* `src/connectors`: definitions for wallet connections.
 
 ## Smart Contracts
 
