@@ -2,6 +2,10 @@
 
 This code contains a truffle project for developing and deploying Ethereum Smart Contracts as well as a React Js web app that demostrates wallet connections, ETH payments, and ERC20 token transfers.
 
+## Demo
+
+![demo-gif](demo.gif)
+
 ## How To Run
 
 Blockchain applications (or DApp's) consist of an Ethereum blockchain, a user interface, and an Ethereum wallet for signing transactions.  Before deploying contracts on to the Etheruem mainnet you can develop them on a local blockchain using truffle.  You can then use a wallet provider to connect to the front-end web app that then connects to the blockchain to receive and send data.  To demonstate this, you can use the following process.
