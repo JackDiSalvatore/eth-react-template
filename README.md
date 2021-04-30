@@ -2,6 +2,17 @@
 
 This code contains a truffle project for developing and deploying Ethereum Smart Contracts as well as a React Js web app that demostrates wallet connections, ETH payments, and ERC20 token transfers.
 
+**Supported Wallets:**
+* Browser Wallets (MetaMask)
+* Wallet Connect
+* Coinbase Wallet (WalletLink)
+* Ledger
+* Lattice
+* Fortmatic
+* Portis
+* Torus
+
+
 ## Demo
 
 ![demo-gif](demo.gif)
