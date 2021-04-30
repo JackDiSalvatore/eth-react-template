@@ -126,6 +126,11 @@ const Wallet = () => {
         </Modal.Footer>
       </Modal>
       )}
+
+      <div className="App">
+        <h1>Your dApp Here</h1>
+      </div>
+
     </>
   )
 }
