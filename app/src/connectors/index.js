@@ -13,6 +13,17 @@ import { MagicConnector } from '@web3-react/magic-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
 // import Portis from '@portis/web3';
 import { TorusConnector } from '@web3-react/torus-connector'
+
+// Icons
+import MetaMaskIcon from '../assets/metamask.svg';
+import WalletConnectIcon from '../assets/walletconnect.svg';
+import CoinbaseWalletIcon from '../assets/walletlink.svg';
+import LedgerIcon from '../assets/ledger.png';
+import LatticeIcon from '../assets/lattice.png';
+import FortmaticIcon from '../assets/fortmatic.png';
+import PortisIcon from '../assets/portis.png';
+import TorusIcon from '../assets/torus.png';
+
 require('dotenv').config()
 
 const POLLING_INTERVAL = 12000
@@ -25,6 +36,28 @@ const RPC_URLS = {
   42: process.env.REACT_APP_RPC_URLS_42, // Kovan
   1337: process.env.REACT_APP_RPC_URLS_1337, // Localhost
 }
+
+const ConnectorNamesLocal = {
+  Injected: 'MetaMask',
+  WalletConnect: 'WalletConnect',
+  WalletLink: 'Coinbase Wallet',
+  Ledger: 'Ledger',
+  Lattice: 'Lattice',
+  Fortmatic: 'Fortmatic',
+  Portis: 'Portis',
+  Torus: 'Torus',
+  // Network: 'Network',
+  // Trezor: 'Trezor',
+  // Frame: 'Frame',
+  // Authereum: 'Authereum',
+  // Magic: 'Magic',
+}
+
+export const ConnectorNames = ConnectorNamesLocal
+
+// ********************************************
+// Connectors
+// ********************************************
 
 export const injected = new InjectedConnector({
   supportedChainIds: [
@@ -95,3 +128,43 @@ export const portis = new PortisConnector({ dAppId: process.env.REACT_APP_PORTIS
 // export const portis = new Portis(process.env.REACT_APP_PORTIS_DAPP_ID, 'mainnet')
 
 export const torus = new TorusConnector({ chainId: 1 })
+
+export const connectorsByName = {
+  [ConnectorNamesLocal.Injected]: {
+    connector: injected,
+    icon: MetaMaskIcon,
+  },
+  [ConnectorNamesLocal.WalletConnect]: {
+    connector: walletconnect,
+    icon: WalletConnectIcon,
+  },
+  [ConnectorNamesLocal.WalletLink]: {
+    connector: walletlink,
+    icon: CoinbaseWalletIcon,
+  },
+  [ConnectorNamesLocal.Ledger]: {
+    connector: ledger,
+    icon: LedgerIcon,
+  },
+  [ConnectorNamesLocal.Lattice]: {
+    connector: lattice,
+    icon: LatticeIcon,
+  },
+  [ConnectorNamesLocal.Fortmatic]: {
+    connector: fortmatic,
+    icon: FortmaticIcon,
+  },
+  [ConnectorNamesLocal.Portis]: {
+    connector: portis,
+    icon: PortisIcon,
+  },
+  [ConnectorNamesLocal.Torus]: {
+    connector: torus,
+    icon: TorusIcon,
+  },
+  // [ConnectorNames.Network]: network,
+  // [ConnectorNames.Trezor]: trezor,
+  // [ConnectorNames.Frame]: frame,
+  // [ConnectorNames.Authereum]: authereum,
+  // [ConnectorNames.Magic]: magic,
+}

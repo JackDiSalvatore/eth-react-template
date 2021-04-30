@@ -1,124 +1,23 @@
 import React from 'react';
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
+import { useWeb3React } from '@web3-react/core'
+import { SWRConfig } from "swr";
 
-import {
-  NoEthereumProviderError,
-  UserRejectedRequestError as UserRejectedRequestErrorInjected
-} from '@web3-react/injected-connector'
-import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector'
-import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector'
+// Utils
+import { fetcher } from "../utils";
+import { connectorsByName } from '../connectors'
+// import reportWebVitals from '../reportWebVitals';
 
+// hooks
 import useEagerConnect from './hooks/useEagerConnect';
 import useInactiveListener from './hooks/useInactiveListener';
-import { shorter } from "../utils";
 
-import { SWRConfig } from "swr";
-import { fetcher } from "../utils";
+// Components
 import ERC20ABI from "../abi/ERC20.abi.json";
+import Header from './Header';
 import Ether from './Ether/Ether';
 import ERC20List from './ERC20List';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from './Spinner'
-
-import {
-  injected,
-  walletconnect,
-  walletlink,
-  ledger,
-  lattice,
-  fortmatic,
-  portis,
-  torus,
-  // network,
-  // trezor,
-  // frame,
-  // authereum,
-  // magic,
-} from '../connectors'
-
-import MetaMaskIcon from '../assets/metamask.svg';
-import WalletConnectIcon from '../assets/walletconnect.svg';
-import CoinbaseWalletIcon from '../assets/walletlink.svg';
-import LedgerIcon from '../assets/ledger.png';
-import LatticeIcon from '../assets/lattice.png';
-import FortmaticIcon from '../assets/fortmatic.png';
-import PortisIcon from '../assets/portis.png';
-import TorusIcon from '../assets/torus.png';
-
-// import reportWebVitals from '../reportWebVitals';
-
-const ConnectorNames = {
-  Injected: 'MetaMask',
-  WalletConnect: 'WalletConnect',
-  WalletLink: 'Coinbase Wallet',
-  Ledger: 'Ledger',
-  Lattice: 'Lattice',
-  Fortmatic: 'Fortmatic',
-  Portis: 'Portis',
-  Torus: 'Torus',
-  // Network: 'Network',
-  // Trezor: 'Trezor',
-  // Frame: 'Frame',
-  // Authereum: 'Authereum',
-  // Magic: 'Magic',
-}
-
-const connectorsByName = {
-  [ConnectorNames.Injected]: {
-    connector: injected,
-    icon: MetaMaskIcon,
-  },
-  [ConnectorNames.WalletConnect]: {
-    connector: walletconnect,
-    icon: WalletConnectIcon,
-  },
-  [ConnectorNames.WalletLink]: {
-    connector: walletlink,
-    icon: CoinbaseWalletIcon,
-  },
-  [ConnectorNames.Ledger]: {
-    connector: ledger,
-    icon: LedgerIcon,
-  },
-  [ConnectorNames.Lattice]: {
-    connector: lattice,
-    icon: LatticeIcon,
-  },
-  [ConnectorNames.Fortmatic]: {
-    connector: fortmatic,
-    icon: FortmaticIcon,
-  },
-  [ConnectorNames.Portis]: {
-    connector: portis,
-    icon: PortisIcon,
-  },
-  [ConnectorNames.Torus]: {
-    connector: torus,
-    icon: TorusIcon,
-  },
-  // [ConnectorNames.Network]: network,
-  // [ConnectorNames.Trezor]: trezor,
-  // [ConnectorNames.Frame]: frame,
-  // [ConnectorNames.Authereum]: authereum,
-  // [ConnectorNames.Magic]: magic,
-}
-
-function getErrorMessage(error) {
-  if (error instanceof NoEthereumProviderError) {
-    return 'No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.'
-  } else if (error instanceof UnsupportedChainIdError) {
-    return "You're connected to an unsupported network."
-  } else if (
-    error instanceof UserRejectedRequestErrorInjected ||
-    error instanceof UserRejectedRequestErrorWalletConnect ||
-    error instanceof UserRejectedRequestErrorFrame
-  ) {
-    return 'Please authorize this website to access your Ethereum account.'
-  } else {
-    console.error(error)
-    return 'Not Connected. An Error occurred.'
-  }
-}
 
 const Wallet = () => {
   const context = useWeb3React()
@@ -144,86 +43,14 @@ const Wallet = () => {
 
   return (
     <>
+      <Header
+        active={active}
+        error={error}
+        account={account}
+        deactivate={deactivate}
+        setModalShow={setModalShow}
+      />
 
-      {/* HEADER */}
-      {(active || error) ? (
-      <div
-        style={{
-          display: 'grid',
-          gridGap: '1rem',
-          gridTemplateColumns: '1fr',
-          justifyItems: 'right',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            margin: '1rem 1rem',
-          }}
-        >
-          <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
-          <button
-            style={{
-              height: '100%',
-              margin: '0 0.5rem',
-              padding: '0 1rem',
-              cursor: 'pointer',
-            }}
-            onClick={(connector) => {
-              if ( (connector === connectorsByName[ConnectorNames.Portis].connector) ||
-                  (connector === connectorsByName[ConnectorNames.Torus].connector) ||
-                  (connector === connectorsByName[ConnectorNames.Fortmatic.connector]) ||
-                  (connector === connectorsByName[ConnectorNames.WalletLink].connector)
-                ) {
-                connector.close()
-              } else {
-                // WalletConnect
-                // Ledger
-                deactivate()
-              }
-            }}
-          >
-            Deactivate Wallet
-          </button>
-        </div>
-      </div>
-      ) : (
-      <div
-        style={{
-          display: 'grid',
-          gridGap: '1rem',
-          gridTemplateColumns: '1fr',
-          justifyItems: 'right',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            margin: '1rem 1rem',
-          }}
-        >
-          <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
-          <button 
-            style={{
-              height: '100%',
-              margin: '0.5rem 0.5rem',
-              padding: '0 1rem',
-              cursor: 'pointer',
-            }}
-            onClick={() => setModalShow(true)}
-          >
-            Connect Wallet
-          </button>
-        </div>
-      </div>
-      )}
-
-      {!!error && (
-        <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>
-      )}
-
-
-      {/* BODY */}
       {!!(library && account) ? (
         <div className="App">
           <SWRConfig value={{ fetcher: fetcher(library, ERC20ABI) }}>
@@ -232,7 +59,6 @@ const Wallet = () => {
           </SWRConfig>
         </div>
       ) : (
-      <div>
         <Modal
           show={modalShow}
           onHide={() => setModalShow(false)}
@@ -242,64 +68,63 @@ const Wallet = () => {
           centered
           animation={true} // animation on dom element throws warning
         >
-          <Modal.Body>
-            <div
-              style={{
-                display: 'grid',
-                gridGap: '1rem',
-                gridAutoColumns: '1fr 1fr',
-                maxWidth: '20rem',
-                margin: 'auto'
-              }}
-            >
-              <p>Connect to a wallet</p>
-              {Object.keys(connectorsByName).map(name => {
-                const currentConnector = connectorsByName[name].connector
-                const activating = currentConnector === activatingConnector
-                const connected = currentConnector === connector
-                const disabled = !triedEager || !!activatingConnector || connected || !!error
+        <Modal.Body>
+          <div
+            style={{
+              display: 'grid',
+              gridGap: '1rem',
+              gridAutoColumns: '1fr 1fr',
+              maxWidth: '20rem',
+              margin: 'auto'
+            }}
+          >
+            <p>Connect to a wallet</p>
+            {Object.keys(connectorsByName).map(name => {
+              const currentConnector = connectorsByName[name].connector
+              const activating = currentConnector === activatingConnector
+              const connected = currentConnector === connector
+              const disabled = !triedEager || !!activatingConnector || connected || !!error
 
-                return (
-                  <button
-                    className= "WalletButton"
-                    disabled={disabled}
-                    key={name}
-                    onClick={() => {
-                      setActivatingConnector(currentConnector)
-                      activate(connectorsByName[name].connector)
-                      setModalShow(false)
+              return (
+                <button
+                  className= "WalletButton"
+                  disabled={disabled}
+                  key={name}
+                  onClick={() => {
+                    setActivatingConnector(currentConnector)
+                    activate(connectorsByName[name].connector)
+                    setModalShow(false)
+                  }}
+                >
+                  {activating && (
+                    <Spinner color={'black'} style={{ height: '25%' }} />
+                  )}
+                  <div>
+                    {name}
+                  </div>
+                  <img 
+                    margin="auto auto"
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      textAlign: 'right',
                     }}
-                  >
-                    {activating && (
-                      <Spinner color={'black'} style={{ height: '25%' }} />
-                    )}
-                    <div>
-                      {name}
-                    </div>
-                    <img 
-                      margin="auto auto"
-                      style={{
-                        width: '24px',
-                        height: '24px',
-                        textAlign: 'right',
-                      }}
-                      src={connectorsByName[name].icon} alt="https://iconscout.com/icons/metamask by https://iconscout.com/contributors/icon-mafia">
-                    </img>
-                  </button>
-                )
-              })}
-              <p>
-                New to Ethereum?
-                <span> </span>
-                <a href="https://ethereum.org/en/wallets/">Learn more about wallets</a>
-              </p>
-            </div>
-          </Modal.Body>
-          <Modal.Footer style={{border: 'none'}}>
-            <button onClick={() => setModalShow(false)}>Close</button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+                    src={connectorsByName[name].icon} alt="https://iconscout.com/icons/metamask by https://iconscout.com/contributors/icon-mafia">
+                  </img>
+                </button>
+              )
+            })}
+            <p>
+              New to Ethereum?
+              <span> </span>
+              <a href="https://ethereum.org/en/wallets/">Learn more about wallets</a>
+            </p>
+          </div>
+        </Modal.Body>
+        <Modal.Footer style={{border: 'none'}}>
+          <button onClick={() => setModalShow(false)}>Close</button>
+        </Modal.Footer>
+      </Modal>
       )}
     </>
   )
