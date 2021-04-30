@@ -1,6 +1,5 @@
 import React from 'react';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
-import { InjectedConnector } from '@web3-react/injected-connector'
 
 import {
   NoEthereumProviderError,
@@ -11,14 +10,14 @@ import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3
 
 import useEagerConnect from './hooks/useEagerConnect';
 import useInactiveListener from './hooks/useInactiveListener';
-import { Networks, shorter } from "../utils";
+import { shorter } from "../utils";
 
 import { SWRConfig } from "swr";
+import { fetcher } from "../utils";
 import ERC20ABI from "../abi/ERC20.abi.json";
 import Ether from './Ether/Ether';
 import ERC20List from './ERC20List';
-import { fetcher } from "../utils";
-
+import Modal from 'react-bootstrap/Modal';
 import Spinner from './Spinner'
 
 import {
@@ -36,7 +35,6 @@ import {
   // authereum,
   // magic,
 } from '../connectors'
-// import reportWebVitals from '../reportWebVitals';
 
 import MetaMaskIcon from '../assets/metamask.svg';
 import WalletConnectIcon from '../assets/walletconnect.svg';
@@ -47,18 +45,8 @@ import FortmaticIcon from '../assets/fortmatic.png';
 import PortisIcon from '../assets/portis.png';
 import TorusIcon from '../assets/torus.png';
 
-export const injectedConnector = new InjectedConnector({
-  supportedChainIds: [
-    Networks.MainNet,
-    Networks.Ropsten,
-    Networks.Rinkeby,
-    Networks.Goerli,
-    Networks.Kovan,
-    Networks.Localhost,
-  ],
-})
+// import reportWebVitals from '../reportWebVitals';
 
-// I am going to comment out some stuff 
 const ConnectorNames = {
   Injected: 'MetaMask',
   WalletConnect: 'WalletConnect',
@@ -151,56 +139,91 @@ const Wallet = () => {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector)
 
+  // wallet modal
+  const [modalShow, setModalShow] = React.useState(false);
+
   return (
     <>
+
+      {/* HEADER */}
+      {(active || error) ? (
       <div
         style={{
           display: 'grid',
-          // gridGap: '1rem',
+          gridGap: '1rem',
           gridTemplateColumns: '1fr',
           justifyItems: 'right',
-          // alignItems: 'center',
         }}
       >
-        {(active || error) && (
-          <div
+        <div
+          style={{
+            display: 'flex',
+            margin: '1rem 1rem',
+          }}
+        >
+          <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
+          <button
             style={{
-              display: 'flex',
-              margin: '1rem 1rem',
+              height: '100%',
+              margin: '0 0.5rem',
+              padding: '0 1rem',
+              cursor: 'pointer',
+            }}
+            onClick={(connector) => {
+              if ( (connector === connectorsByName[ConnectorNames.Portis].connector) ||
+                  (connector === connectorsByName[ConnectorNames.Torus].connector) ||
+                  (connector === connectorsByName[ConnectorNames.Fortmatic.connector]) ||
+                  (connector === connectorsByName[ConnectorNames.WalletLink].connector)
+                ) {
+                connector.close()
+              } else {
+                // WalletConnect
+                // Ledger
+                deactivate()
+              }
             }}
           >
-            <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
-            <button
-              style={{
-                height: '100%',
-                margin: '0 0.5rem',
-                padding: '0 1rem',
-                cursor: 'pointer',
-              }}
-              onClick={(connector) => {
-                if ( (connector === connectorsByName[ConnectorNames.Portis].connector) ||
-                    (connector === connectorsByName[ConnectorNames.Torus].connector) ||
-                    (connector === connectorsByName[ConnectorNames.Fortmatic.connector]) ||
-                    (connector === connectorsByName[ConnectorNames.WalletLink].connector)
-                  ) {
-                  connector.close()
-                } else {
-                  // WalletConnect
-                  // Ledger
-                  deactivate()
-                }
-              }}
-            >
-              Deactivate Wallet
-            </button>
-          </div>
-        )}
-
-        {!!error && (
-          <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>
-        )}
+            Deactivate Wallet
+          </button>
+        </div>
       </div>
+      ) : (
+      <div
+        style={{
+          display: 'grid',
+          gridGap: '1rem',
+          gridTemplateColumns: '1fr',
+          justifyItems: 'right',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            margin: '1rem 1rem',
+          }}
+        >
+          <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
+          <button 
+            style={{
+              height: '100%',
+              margin: '0.5rem 0.5rem',
+              padding: '0 1rem',
+              cursor: 'pointer',
+            }}
+            onClick={() => setModalShow(true)}
+          >
+            Connect Wallet
+          </button>
+        </div>
+      </div>
+      )}
 
+      {!!error && (
+        <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>
+      )}
+
+
+      {/* BODY */}
       {!!(library && account) ? (
         <div className="App">
           <SWRConfig value={{ fetcher: fetcher(library, ERC20ABI) }}>
@@ -208,59 +231,75 @@ const Wallet = () => {
             <ERC20List chainId={chainId} />
           </SWRConfig>
         </div>
-        ) : (
-        <div className="App">
-          <div
-            style={{
-              display: 'grid',
-              gridGap: '1rem',
-              gridAutoColumns: '1fr 1fr',
-              maxWidth: '20rem',
-              margin: 'auto'
-            }}
-          >
-            <p>Connect to a wallet</p>
-            {Object.keys(connectorsByName).map(name => {
-              const currentConnector = connectorsByName[name].connector
-              const activating = currentConnector === activatingConnector
-              const connected = currentConnector === connector
-              const disabled = !triedEager || !!activatingConnector || connected || !!error
+      ) : (
+      <div>
+        <Modal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          // {...props}
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          animation={true} // animation on dom element throws warning
+        >
+          <Modal.Body>
+            <div
+              style={{
+                display: 'grid',
+                gridGap: '1rem',
+                gridAutoColumns: '1fr 1fr',
+                maxWidth: '20rem',
+                margin: 'auto'
+              }}
+            >
+              <p>Connect to a wallet</p>
+              {Object.keys(connectorsByName).map(name => {
+                const currentConnector = connectorsByName[name].connector
+                const activating = currentConnector === activatingConnector
+                const connected = currentConnector === connector
+                const disabled = !triedEager || !!activatingConnector || connected || !!error
 
-              return (
-                <button
-                  className= "WalletButton"
-                  disabled={disabled}
-                  key={name}
-                  onClick={() => {
-                    setActivatingConnector(currentConnector)
-                    activate(connectorsByName[name].connector)
-                  }}
-                >
-                  {activating && (
-                    <Spinner color={'black'} style={{ height: '25%' }} />
-                  )}
-                  <div>
-                    {name}
-                  </div>
-                  <img 
-                    margin="auto auto"
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                      textAlign: 'right',
+                return (
+                  <button
+                    className= "WalletButton"
+                    disabled={disabled}
+                    key={name}
+                    onClick={() => {
+                      setActivatingConnector(currentConnector)
+                      activate(connectorsByName[name].connector)
+                      setModalShow(false)
                     }}
-                    src={connectorsByName[name].icon} alt="https://iconscout.com/icons/metamask by https://iconscout.com/contributors/icon-mafia">
-                  </img>
-                </button>
-              )
-            })}
-            <p>
-              New to Ethereum?
-              <span> </span>
-              <a href="https://ethereum.org/en/wallets/">Learn more about wallets</a>
-            </p>
-          </div>
-        </div>
+                  >
+                    {activating && (
+                      <Spinner color={'black'} style={{ height: '25%' }} />
+                    )}
+                    <div>
+                      {name}
+                    </div>
+                    <img 
+                      margin="auto auto"
+                      style={{
+                        width: '24px',
+                        height: '24px',
+                        textAlign: 'right',
+                      }}
+                      src={connectorsByName[name].icon} alt="https://iconscout.com/icons/metamask by https://iconscout.com/contributors/icon-mafia">
+                    </img>
+                  </button>
+                )
+              })}
+              <p>
+                New to Ethereum?
+                <span> </span>
+                <a href="https://ethereum.org/en/wallets/">Learn more about wallets</a>
+              </p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer style={{border: 'none'}}>
+            <button onClick={() => setModalShow(false)}>Close</button>
+          </Modal.Footer>
+        </Modal>
+      </div>
       )}
     </>
   )

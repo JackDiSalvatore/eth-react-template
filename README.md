@@ -204,6 +204,7 @@ npm install @web3-react/core
 npm install @web3-react/injected-connector
 npm install swr
 npm install dotenv
+npm install react-bootstrap bootstrap
 ```
 
 ### Run Locally

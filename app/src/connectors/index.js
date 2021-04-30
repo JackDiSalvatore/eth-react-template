@@ -1,3 +1,4 @@
+import { Networks } from '../utils'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { NetworkConnector } from '@web3-react/network-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
@@ -25,7 +26,16 @@ const RPC_URLS = {
   1337: process.env.REACT_APP_RPC_URLS_1337, // Localhost
 }
 
-export const injected = new InjectedConnector({ supportedChainIds: [1, 3, 4, 5, 42, 1337] })
+export const injected = new InjectedConnector({
+  supportedChainIds: [
+    Networks.MainNet,
+    Networks.Ropsten,
+    Networks.Rinkeby,
+    Networks.Goerli,
+    Networks.Kovan,
+    Networks.Localhost,
+  ],
+})
 
 export const network = new NetworkConnector({
   urls: { 
