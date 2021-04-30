@@ -104,17 +104,17 @@ export const TOKENS_BY_NETWORK = {
   [Networks.Localhost]: [
     {
       address: "0xDa587146307e2E54E0f9bF0601350149d4619182",
-      symbol: "XYZ",
-      name: "XyzToken",
+      symbol: "DAI",
+      name: "Dai",
       decimals: 18,
-      icon: UnknownIcon,
+      icon: DAIIcon,
     },
     {
         address: "0x04024a9a11f0Cba69D962EEc5e5B33CfA423bDb1",
-        symbol: "ABC",
-        name: "AbcToken",
+        symbol: "MKR",
+        name: "Maker",
         decimals: 18,
-        icon: UnknownIcon,
+        icon: MKRIcon,
       },
   ],
 }

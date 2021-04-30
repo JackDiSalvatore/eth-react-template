@@ -7,6 +7,6 @@ function tokens (amount) {
 }
 
 module.exports = function (deployer) {
-  deployer.deploy(ERC20Token, "XyzToken", "XYZ", tokens(1000));
-  deployer.deploy(ERC20Token, "AbcToken", "ABC", tokens(1000));
+  deployer.deploy(ERC20Token, "Dai", "DAI", tokens(1000));
+  deployer.deploy(ERC20Token, "Maker", "MKR", tokens(1000));
 };
