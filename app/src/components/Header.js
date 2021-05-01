@@ -31,14 +31,7 @@ const Header = ({ active, error, account, deactivate, setModalShow }) => {
   return (
     <>
       {(active || error) ? (
-        <div
-          style={{
-            display: 'grid',
-            gridGap: '1rem',
-            gridTemplateColumns: '1fr',
-            justifyItems: 'right',
-          }}
-        >
+        <div className="App-header">
           <div
             style={{
               display: 'flex',

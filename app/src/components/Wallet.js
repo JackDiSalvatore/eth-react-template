@@ -42,7 +42,7 @@ const Wallet = () => {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
-    <>
+    <div className="App">
       <Header
         active={active}
         error={error}
@@ -52,7 +52,7 @@ const Wallet = () => {
       />
 
       {!!(library && account) ? (
-        <div className="App">
+        <div className="Container">
           <SWRConfig value={{ fetcher: fetcher(library, ERC20ABI) }}>
             <Ether />
             <ERC20List chainId={chainId} />
@@ -67,6 +67,7 @@ const Wallet = () => {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           animation={true} // animation on dom element throws warning
+          className="Modal"
         >
         <Modal.Body>
           <div
@@ -78,7 +79,7 @@ const Wallet = () => {
               margin: 'auto'
             }}
           >
-            <p>Connect to a wallet</p>
+            <strong>Connect to a wallet</strong>
             {Object.keys(connectorsByName).map(name => {
               const currentConnector = connectorsByName[name].connector
               const activating = currentConnector === activatingConnector
@@ -114,11 +115,11 @@ const Wallet = () => {
                 </button>
               )
             })}
-            <p>
+            <strong>
               New to Ethereum?
               <span> </span>
               <a href="https://ethereum.org/en/wallets/">Learn more about wallets</a>
-            </p>
+            </strong>
           </div>
         </Modal.Body>
         <Modal.Footer style={{border: 'none'}}>
@@ -127,11 +128,11 @@ const Wallet = () => {
       </Modal>
       )}
 
-      <div className="App">
+      <div className="Container">
         <h1>Your dApp Here</h1>
       </div>
 
-    </>
+    </div>
   )
 }
 
