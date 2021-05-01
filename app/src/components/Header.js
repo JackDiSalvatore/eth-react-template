@@ -29,76 +29,74 @@ function getErrorMessage(error) {
 
 const Header = ({ active, error, account, deactivate, setModalShow }) => {
   return (
-    <>
+    <div className="App-header">
       {(active || error) ? (
-        <div className="App-header">
-          <div
-            style={{
-              display: 'flex',
-              margin: '1rem 1rem',
-            }}
-          >
-            <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
-            <button
-              style={{
-                height: '100%',
-                margin: '0 0.5rem',
-                padding: '0 1rem',
-                cursor: 'pointer',
-              }}
-              onClick={(connector) => {
-                if ( (connector === connectorsByName[ConnectorNames.Portis].connector) ||
-                    (connector === connectorsByName[ConnectorNames.Torus].connector) ||
-                    (connector === connectorsByName[ConnectorNames.Fortmatic.connector]) ||
-                    (connector === connectorsByName[ConnectorNames.WalletLink].connector)
-                  ) {
-                  connector.close()
-                } else {
-                  // WalletConnect
-                  // Ledger
-                  deactivate()
-                }
-              }}
-            >
-              Deactivate Wallet
-            </button>
-          </div>
-        </div>
-        ) : (
         <div
           style={{
-            display: 'grid',
-            gridGap: '1rem',
-            gridTemplateColumns: '1fr',
-            justifyItems: 'right',
+            display: 'flex',
+            margin: '1rem 1rem',
           }}
         >
-          <div
+          <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
+          <button
             style={{
-              display: 'flex',
-              margin: '1rem 1rem',
+              height: '100%',
+              margin: '0 0.5rem',
+              padding: '0 1rem',
+              cursor: 'pointer',
+            }}
+            onClick={(connector) => {
+              if ( (connector === connectorsByName[ConnectorNames.Portis].connector) ||
+                  (connector === connectorsByName[ConnectorNames.Torus].connector) ||
+                  (connector === connectorsByName[ConnectorNames.Fortmatic.connector]) ||
+                  (connector === connectorsByName[ConnectorNames.WalletLink].connector)
+                ) {
+                connector.close()
+              } else {
+                // WalletConnect
+                // Ledger
+                deactivate()
+              }
             }}
           >
-            <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
-            <button 
-              style={{
-                height: '100%',
-                margin: '0.5rem 0.5rem',
-                padding: '0 1rem',
-                cursor: 'pointer',
-              }}
-              onClick={() => setModalShow(true)}
-            >
-              Connect Wallet
-            </button>
-          </div>
+            Deactivate Wallet
+          </button>
         </div>
-      )}
-  
-      {!!error && (
-        <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>
-      )}
-    </>
+      ) : (
+      <div
+        style={{
+          display: 'grid',
+          gridGap: '1rem',
+          gridTemplateColumns: '1fr',
+          justifyItems: 'right',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            margin: '1rem 1rem',
+          }}
+        >
+          <p style={{textAlign: 'right', margin: '0.5rem 0'}}>{shorter(account)}</p>
+          <button 
+            style={{
+              height: '100%',
+              margin: '0.5rem 0.5rem',
+              padding: '0 1rem',
+              cursor: 'pointer',
+            }}
+            onClick={() => setModalShow(true)}
+          >
+            Connect Wallet
+          </button>
+        </div>
+      </div>
+    )}
+
+    {!!error && (
+      <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>
+    )}
+    </div>
   )
 }
 
