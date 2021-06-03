@@ -2,8 +2,8 @@ import { Contract } from '@ethersproject/contracts'
 import { isAddress } from '@ethersproject/address'
 
 // Token Icons
-import MKRIcon from '../assets/maker-mkr-logo.svg';
-import DAIIcon from '../assets/multi-collateral-dai-dai-logo.svg';
+import MKRIcon from '../assets/tokens/maker-mkr-logo.svg';
+import DAIIcon from '../assets/tokens/multi-collateral-dai-dai-logo.svg';
 
 const UnknownIcon = "https://img.icons8.com/ios-glyphs/30/000000/question-mark.png"
 

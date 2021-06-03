@@ -1,7 +1,7 @@
 // import React from 'react';
 import EtherBalance from './EtherBalance';
 import EtherTransfer from './EtherTransfer';
-import EtherIcon from '../../assets/ethereum-eth-logo.svg';
+import EtherIcon from '../../assets/tokens/ethereum-eth-logo.svg';
 
 const Ether = () => {
   return (

@@ -15,14 +15,14 @@ import { PortisConnector } from '@web3-react/portis-connector'
 import { TorusConnector } from '@web3-react/torus-connector'
 
 // Icons
-import MetaMaskIcon from '../assets/metamask.svg';
-import WalletConnectIcon from '../assets/walletconnect.svg';
-import CoinbaseWalletIcon from '../assets/walletlink.svg';
-import LedgerIcon from '../assets/ledger.png';
-import LatticeIcon from '../assets/lattice.png';
-import FortmaticIcon from '../assets/fortmatic.png';
-import PortisIcon from '../assets/portis.png';
-import TorusIcon from '../assets/torus.png';
+import MetaMaskIcon from '../assets/wallets/metamask.svg';
+import WalletConnectIcon from '../assets/wallets/walletconnect.svg';
+import CoinbaseWalletIcon from '../assets/wallets/walletlink.svg';
+import LedgerIcon from '../assets/wallets/ledger.png';
+import LatticeIcon from '../assets/wallets/lattice.png';
+import FortmaticIcon from '../assets/wallets/fortmatic.png';
+import PortisIcon from '../assets/wallets/portis.png';
+import TorusIcon from '../assets/wallets/torus.png';
 
 require('dotenv').config()
 
