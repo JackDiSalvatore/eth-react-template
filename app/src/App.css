@@ -49,6 +49,14 @@ h1 {
   margin: 5% auto;
 }
 
+.DisplayContainer {
+  margin: 2% 6%;
+}
+
+.GraphContainer {
+  margin: 2% 0;
+}
+
 /* Modal */
 
 .Modal {

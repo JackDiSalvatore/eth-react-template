@@ -16,6 +16,7 @@ import ERC20ABI from "../abi/ERC20.abi.json";
 import Header from './Header';
 import Ether from './Ether/Ether';
 import ERC20List from './ERC20List';
+import Borrow from './Borrow/Borrow';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from './Spinner'
 
@@ -129,7 +130,8 @@ const Wallet = () => {
       )}
 
       <div className="Container">
-        <h1>Your dApp Here</h1>
+        {/* <h1>App Name Here</h1> */}
+        <Borrow />
       </div>
 
     </div>
